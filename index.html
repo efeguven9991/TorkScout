@@ -15,7 +15,7 @@
   <!-- Top Header Navigation -->
   <header class="app-header">
     <div class="app-wrapper header-container">
-      <!-- Görsel 1: TorkScout Orijinal Logo Kullanımı -->
+      <!-- Görsel 1: TorkScout Logo (Büyütüldü) -->
       <a href="#" class="brand-logo">
         <img src="assets/torkscout-logo.png" alt="TorkScout" class="header-logo-img" />
       </a>
@@ -46,9 +46,36 @@
   <!-- Main Content Container -->
   <main class="app-wrapper" style="padding-bottom: 60px;">
 
-    <!-- ================= HERO SECTION (Görsel 2: Hızlı Araç Sorgulama Üzerine) ================= -->
-    <section class="hero-section" style="padding: 30px 0 20px 0; text-align: center;">
-      <img src="assets/hero-banner.png" alt="İlanı Gör, Aracı Anla, Doğru Kararı Ver" class="hero-banner-img" />
+    <!-- ================= HERO BANNER (Beyaz Arka Plan + %50 Büyütülmüş Yan İkonlar) ================= -->
+    <section class="hero-section">
+      <div class="hero-banner-container">
+        <!-- Sol İkon (Speed Lines - %50 Büyütülmüş, En Sola Taşındı) -->
+        <div class="hero-graphic-left">
+          <svg width="100" height="50" viewBox="0 0 100 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="10" x2="90" y2="10" stroke="#00E5FF" stroke-width="5" stroke-linecap="round"/>
+            <line x1="15" y1="25" x2="90" y2="25" stroke="#00E5FF" stroke-width="5" stroke-linecap="round"/>
+            <line x1="30" y1="40" x2="90" y2="40" stroke="#00E5FF" stroke-width="5" stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <!-- Orta Başlık Metni -->
+        <div class="hero-text-content">
+          <h1 class="hero-title">
+            İlanı Gör, Aracı Anla, <span>Doğru Kararı Ver.</span>
+          </h1>
+          <p class="hero-subtitle">Araçları Karşılaştırın, Size En Uygun Aracı Keşfedin.</p>
+        </div>
+
+        <!-- Sağ İkon (T-Speedometer - %50 Büyütülmüş, En Sağa Taşındı) -->
+        <div class="hero-graphic-right">
+          <svg width="110" height="90" viewBox="0 0 110 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 35 70 A 35 35 0 1 1 95 70" stroke="#00E5FF" stroke-width="4" stroke-dasharray="3 4" fill="none"/>
+            <line x1="65" y1="60" x2="90" y2="25" stroke="#00E5FF" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="65" cy="60" r="5" fill="#00E5FF"/>
+            <path d="M 10 10 L 65 10 M 38 10 L 38 75" stroke="#00E5FF" stroke-width="10" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
     </section>
 
     <!-- ================= 🚗 HIZLI ARAÇ SORGULAMA CARD ================= -->
