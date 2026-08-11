@@ -39,15 +39,16 @@
         <h1 class="section-title">İlgilendiğin Aracı Seç & İncele</h1>
         <p class="section-subtitle">Marka, model, motor ve şanzıman varyantına özel doğrulayıcı AI araştırmasını başlatın.</p>
 
-        <!-- Vehicle Selector Card (Sleek Dark Navy on White BG) -->
+        <!-- Hızlı Araç Sorgula Card (Sleek Dark Navy on White BG) -->
         <div class="dark-card">
           <div class="dark-card-header">
             <div class="dark-card-title">
-              <i class="ph-bold ph-sliders"></i> Araç Varyant Seçimi
+              <i class="ph-bold ph-sliders"></i> Hızlı Araç Sorgula
             </div>
             <span style="font-size: 0.8rem; color: var(--accent-cyan); font-weight: 600;">Varyant Hassasiyeti Aktif</span>
           </div>
 
+          <!-- 8 Dropdown Controls in Exact Order Requested -->
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
             <div class="form-group">
               <label class="form-label">Marka</label>
@@ -58,24 +59,28 @@
               <select id="selectModel" class="custom-select"></select>
             </div>
             <div class="form-group">
-              <label class="form-label">Model Yılı</label>
+              <label class="form-label">Yıl</label>
               <select id="selectYear" class="custom-select"></select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Kasa Tipi</label>
+              <select id="selectBody" class="custom-select"></select>
             </div>
             <div class="form-group">
               <label class="form-label">Motor / Versiyon</label>
               <select id="selectEngine" class="custom-select"></select>
             </div>
             <div class="form-group">
+              <label class="form-label">Yakıt Türü</label>
+              <select id="selectFuel" class="custom-select"></select>
+            </div>
+            <div class="form-group">
               <label class="form-label">Şanzıman Tipi</label>
               <select id="selectTrans" class="custom-select"></select>
             </div>
             <div class="form-group">
-              <label class="form-label">Yakıt Türü</label>
-              <select id="selectFuel" class="custom-select">
-                <option value="Dizel">Dizel</option>
-                <option value="Benzin">Benzin</option>
-                <option value="Hibrit">Hibrit / Elektrik</option>
-              </select>
+              <label class="form-label">Donanım Paketi</label>
+              <select id="selectTrim" class="custom-select"></select>
             </div>
           </div>
 
