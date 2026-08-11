@@ -37,13 +37,11 @@ function initTabs() {
   });
 }
 
-// 2. Cascading Variant Selectors (Brand -> Model -> Year -> Specs)
+// 2. Cascading Variant Selectors (8 Controls in Exact Requested Order)
 function initVariantSelectors() {
   const brandSel = document.getElementById("selectBrand");
   const modelSel = document.getElementById("selectModel");
   const yearSel = document.getElementById("selectYear");
-  const engineSel = document.getElementById("selectEngine");
-  const transSel = document.getElementById("selectTrans");
 
   // Populate Brands
   brandSel.innerHTML = `<option value="">-- Marka Seçin --</option>`;
@@ -61,20 +59,14 @@ function initVariantSelectors() {
 function onBrandChange() {
   const brand = document.getElementById("selectBrand").value;
   const modelSel = document.getElementById("selectModel");
-  const yearSel = document.getElementById("selectYear");
-  const engineSel = document.getElementById("selectEngine");
-  const transSel = document.getElementById("selectTrans");
 
-  modelSel.innerHTML = `<option value="">-- Model Seçin --</option>`;
-  yearSel.innerHTML = `<option value="">-- Model Yılı --</option>`;
-  engineSel.innerHTML = `<option value="">-- Motor / Versiyon --</option>`;
-  transSel.innerHTML = `<option value="">-- Şanzıman --</option>`;
+  modelSel.innerHTML = `<option value="">-- Model Ailesi --</option>`;
+  resetSubDropdowns();
 
   if (brand && CAR_DATABASE[brand]) {
     Object.keys(CAR_DATABASE[brand]).forEach(m => {
       modelSel.innerHTML += `<option value="${m}">${m}</option>`;
     });
-    // Auto select first model if available
     modelSel.selectedIndex = 1;
     onModelChange();
   }
@@ -84,12 +76,9 @@ function onModelChange() {
   const brand = document.getElementById("selectBrand").value;
   const model = document.getElementById("selectModel").value;
   const yearSel = document.getElementById("selectYear");
-  const engineSel = document.getElementById("selectEngine");
-  const transSel = document.getElementById("selectTrans");
 
-  yearSel.innerHTML = `<option value="">-- Model Yılı --</option>`;
-  engineSel.innerHTML = `<option value="">-- Motor / Versiyon --</option>`;
-  transSel.innerHTML = `<option value="">-- Şanzıman --</option>`;
+  yearSel.innerHTML = `<option value="">-- Yıl --</option>`;
+  resetSubDropdowns();
 
   if (brand && model && CAR_DATABASE[brand][model]) {
     Object.keys(CAR_DATABASE[brand][model]).forEach(y => {
@@ -100,26 +89,59 @@ function onModelChange() {
   }
 }
 
+function resetSubDropdowns() {
+  document.getElementById("selectBody").innerHTML = `<option value="">-- Kasa Tipi --</option>`;
+  document.getElementById("selectEngine").innerHTML = `<option value="">-- Motor / Versiyon --</option>`;
+  document.getElementById("selectFuel").innerHTML = `<option value="">-- Yakıt Türü --</option>`;
+  document.getElementById("selectTrans").innerHTML = `<option value="">-- Şanzıman Tipi --</option>`;
+  document.getElementById("selectTrim").innerHTML = `<option value="">-- Donanım Paketi --</option>`;
+}
+
 function onYearChange() {
   const brand = document.getElementById("selectBrand").value;
   const model = document.getElementById("selectModel").value;
   const year = document.getElementById("selectYear").value;
-  const engineSel = document.getElementById("selectEngine");
-  const transSel = document.getElementById("selectTrans");
 
-  engineSel.innerHTML = `<option value="">-- Motor / Versiyon --</option>`;
-  transSel.innerHTML = `<option value="">-- Şanzıman --</option>`;
+  const bodySel = document.getElementById("selectBody");
+  const engineSel = document.getElementById("selectEngine");
+  const fuelSel = document.getElementById("selectFuel");
+  const transSel = document.getElementById("selectTrans");
+  const trimSel = document.getElementById("selectTrim");
+
+  resetSubDropdowns();
 
   if (brand && model && year && CAR_DATABASE[brand][model][year]) {
     const data = CAR_DATABASE[brand][model][year];
-    data.Motor.forEach(e => {
-      engineSel.innerHTML += `<option value="${e}">${e}</option>`;
-    });
-    data.Şanzıman.forEach(t => {
-      transSel.innerHTML += `<option value="${t}">${t}</option>`;
-    });
-    engineSel.selectedIndex = 1;
-    transSel.selectedIndex = 1;
+
+    // Populate Kasa Tipi
+    if (data.Kasa) {
+      data.Kasa.forEach(k => bodySel.innerHTML += `<option value="${k}">${k}</option>`);
+      bodySel.selectedIndex = 1;
+    }
+
+    // Populate Motor / Versiyon
+    if (data.Motor) {
+      data.Motor.forEach(e => engineSel.innerHTML += `<option value="${e}">${e}</option>`);
+      engineSel.selectedIndex = 1;
+    }
+
+    // Populate Yakıt Türü
+    if (data.Yakıt) {
+      data.Yakıt.forEach(f => fuelSel.innerHTML += `<option value="${f}">${f}</option>`);
+      fuelSel.selectedIndex = 1;
+    }
+
+    // Populate Şanzıman Tipi
+    if (data.Şanzıman) {
+      data.Şanzıman.forEach(t => transSel.innerHTML += `<option value="${t}">${t}</option>`);
+      transSel.selectedIndex = 1;
+    }
+
+    // Populate Donanım Paketi
+    if (data.Donanım) {
+      data.Donanım.forEach(d => trimSel.innerHTML += `<option value="${d}">${d}</option>`);
+      trimSel.selectedIndex = 1;
+    }
   }
 }
 
@@ -128,11 +150,13 @@ async function runVehicleInspection() {
   const brand = document.getElementById("selectBrand").value || "Volkswagen";
   const model = document.getElementById("selectModel").value || "Golf";
   const year = document.getElementById("selectYear").value || "2016";
+  const body = document.getElementById("selectBody").value || "Hatchback (5 Kapı)";
   const engine = document.getElementById("selectEngine").value || "1.6 TDI (110 HP)";
+  const fuel = document.getElementById("selectFuel").value || "Dizel";
   const trans = document.getElementById("selectTrans").value || "7 İleri Kuru Çift Kavrama (DSG DQ200)";
-  const fuel = document.getElementById("selectFuel")?.value || "Dizel";
+  const trim = document.getElementById("selectTrim").value || "Highline";
 
-  const variant = { brand, model, year, engine, trans, fuel };
+  const variant = { brand, model, year, body, engine, fuel, trans, trim };
 
   const progressCard = document.getElementById("aiProgressCard");
   const progressText = document.getElementById("progressStepText");
